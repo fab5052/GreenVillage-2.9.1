@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ product.label }}
+	- Détails du produit
+{% endblock %}
+
+{% block body %}
+	<div class="container mx-auto p-6 bg-gradient-to-r from-blue-50 to-indigo-100 shadow-xl rounded-lg mt-16">
+		<div
+			class="bg-white p-8 rounded-lg shadow-lg">
+
+			<!-- Titre du produit et informations de base -->
+			<div class="flex justify-between items-center mb-8">
+				<div>
+					<h1 class="text-4xl font-extrabold text-gray-800">{{ product.label }}</h1>
+					<p class="text-gray-500 mt-2">Référence :
+						<span class="font-medium">{{ product.reference }}</span>
+					</p>
+					{# <p class="text-gray-500">Fournisseur :
+						<span class="font-medium">{{ product.suppliers.reference }}</span>
+					</p> #}
+					<p class="text-gray-500">Rubrique :
+						<span class="font-medium">{{ product.rubrics.label }}</span>
+					</p>
+				</div>
+
+				<!-- Prix -->
+				<div class="text-right">
+					<p class="text-2xl font-bold text-indigo-600">{{ product.price }}
+						€ HT</p>
+				</div>
+			</div>
+
+			<!-- Images du produit -->
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+				<div class="product-images">
+					{% for image in product.images %}
+						<img src="{{ image.image }}" alt="Image de {{ product.label }}" width="200">
+					{% else %}
+						<p>Aucune image disponible.</p>
+					{% endfor %}
+				</div>
+			</div>
+
+			<!-- Description du produit -->
+			<div class="mb-6">
+				<h2 class="text-2xl font-semibold text-gray-800 mb-3">Description</h2>
+				<p class="text-gray-700 leading-relaxed">{{ product.description }}</p>
+			</div>
+
+			<!-- Poids Net -->
+			<div class="mb-6">
+				<h2 class="text-2xl font-semibold text-gray-800 mb-3">Poids Net</h2>
+				<p class="text-gray-600">{{ product.weight }}
+					Kg</p>
+			</div>
+
+			<!-- Informations supplémentaires (admin only) -->
+			{% if is_granted('ROLE_USER') %}
+				<div class="mb-6">
+					<h2 class="text-2xl font-semibold text-gray-800 mb-3">Autres Informations</h2>
+					<ul class="list-disc list-inside text-gray-600">
+						<li>Stock disponible :
+							{{ product.stock }}</li>
+					</ul>
+				</div>
+			{% endif %}
+
+			<!-- Ajouter au panier -->
+			<div class="mt-8 flex justify-center">
+				<a href="{{ path('cart_index', {'slug': product.slug}) }}" class="px-8 py-3 bg-yellow-500 text-white rounded-full shadow-lg hover:bg-yellow-600 focus:outline-none focus:ring-4 focus:ring-yellow-300 transition duration-200 transform hover:scale-105">
+					Ajouter au panier
+				</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}

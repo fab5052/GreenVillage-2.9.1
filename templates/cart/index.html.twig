@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Panier de
+	{{ app.user.firstName }}
+{% endblock %}
+
+{% block body %}
+	<main
+		class="container mx-auto px-4 py-12 bg-white shadow-lg rounded-xl max-w-7xl">
+
+		<!-- Header de la page -->
+		<header class="text-center mb-8">
+			<h1 class="text-4xl font-bold text-gray-800">
+				Votre Panier
+			</h1>
+		</header>
+
+		{% if products|length == 0 %}
+			<!-- Section Panier Vide -->
+			<section class="text-center">
+				<p class="text-lg text-gray-600 mb-4">Votre panier est vide.</p>
+				<a href="{{ path('app_products') }}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition transform hover:scale-105">
+					Revenir à la page tous nos produits
+				</a>
+			</section>
+		{% else %}
+			<!-- Section Liste des Produits -->
+			<section class="space-y-8">
+				{% for product in products %}
+					<article class="flex items-center justify-between bg-gray-50 p-6 rounded-lg shadow-md">
+						<div
+							class="flex items-center space-x-6">
+							<div class="product-images">
+								{% for image in product.images %}
+									<img src="{{ image.image }}" alt="Image de {{ product.label }}" width="200">
+								{% else %}
+									<p>Aucune image disponible.</p>
+								{% endfor %}
+							</div>
+							<div>
+								<h2 class="text-xl font-semibold text-gray-800">{{ product.product.label }}</h2>
+								<p class="text-lg text-gray-600 mt-2">Prix :
+									<span class="font-bold">{{ product.product.price }}
+										€</span>
+								</p>
+							</div>
+						</div>
+
+						<!-- Section Contrôles de quantité -->
+						<div class="flex items-center space-x-4">
+							<a href="{{ path('cart_remove', { id: product.product.id }) }}" class="text-2xl text-red-600 hover:text-red-800 transition transform hover:scale-110">
+								-
+							</a>
+							<span class="text-lg font-bold text-gray-800">{{ product.quantity }}</span>
+							<a href="{{ path('cart_add', { id: product.product.id }) }}" class="text-2xl text-green-600 hover:text-green-800 transition transform hover:scale-110">
+								+
+							</a>
+						</div>
+
+						<!-- Lien Supprimer le produit -->
+						<a href="{{ path('cart_allRemove', { id: product.product.id }) }}" class="text-sm text-red-600 hover:text-red-800 transition transform hover:scale-110">
+							Supprimer
+						</a>
+					</article>
+				{% endfor %}
+			</section>
+
+			<!-- Section Total et validation -->
+			<section class="mt-8 text-center">
+				<p class="text-2xl font-semibold text-gray-800 mb-6">Total :
+					<span class="text-blue-600">{{ total }}
+						€</span>
+				</p>
+				{# <a href="{{ path('validation_cart_address') }}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition transform hover:scale-105">
+					Choisir une adresse
+				</a> #}
+			</section>
+		{% endif %}
+	</main>
+{% endblock %}

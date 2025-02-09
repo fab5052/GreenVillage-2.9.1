@@ -1,0 +1,145 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+opcache:
+    path: /opcache
+    controller: App\Controller\OpcacheController::index
+
+
+# app_dashboardAdmin:
+#   path: /admin/dashboard
+#   controller: App\controller\AdminController::admin
+
+# app_dashboardClient:
+#   path: /client/dashboard
+#   controller: App\controller\ClientController::client
+
+# app_dashboardCommercial:
+#   path: /commercial/dashboard
+#   controller: App\controller\CommercialController::commercial
+
+admin_user_index:
+   path: /admin/
+#  controller: App\Controller\RubricController::index
+   defaults:
+     role: ROLE_ADMIN
+
+app_register:
+  path: /register
+  controller: App\Controller\RegistrationController::register
+
+app_verify:
+  path: /verif/{token}
+  controller: App\Controller\RegistrationController::verify_user
+
+app_resend:
+  path: /verif/resend
+  controller: App\Controller\RegistrationController::resend_verif
+
+app_login:
+  path: /login
+  controller: App\Controller\SecurityController::login
+
+app_logout:
+  path: /logout
+  controller: App\Controller\SecurityController::logout
+
+app_changePassword:
+  path: /changePassword/{id}
+  controller: App\Controller\SecurityController::changePassword
+  defaults:
+    role: ROLE_USER
+
+
+app_home:
+  path: /
+  controller: App\Controller\MainController::index
+  # defaults:
+  #    role: ROLE_USER
+
+app_last_rubric:
+  path: /last_rubric
+  controller: App\Controller\RubricController::showLastRubric     
+  # defaults:
+  #    role: ROLE_USER
+
+app_rubric:
+  path: /rubric
+  controller: App\Controller\RubricController::rubrics
+  # defaults:
+  #    role: ROLE_USER
+
+app_orders:
+  path: /orders
+  controller: App\Controller\OrderController::index
+  defaults:
+    role: ROLE_USER
+
+app_orders_details:
+  path: /orders_details
+  controller: App\Controller\OrderController::details
+  defaults:
+    role: ROLE_USER    
+
+# app_rubrics:
+#   path: /
+#   controller: App\Controller\RubricController::rubrics
+
+app_products_by_rubric:
+  path: /rubric/{slug}
+  controller: App\Controller\ProductController::ByRubric
+
+##Tout les Produits
+app_products:
+  path: /products
+  controller: App\Controller\ProductController::index
+  # defaults:
+  #   role: ROLE_USER
+
+## Details d'un produit
+app_product_details:
+  path: /{slug}
+  controller: App\Controller\ProductController::productDetails
+  # defaults:
+  #   role: ROLE_USER
+
+## Panier
+app_cart:
+  path: /cart
+  controller: App\Controller\CartController::viewCart
+  defaults:
+    role: ROLE_USER
+
+## Profile
+app_profile:
+  path: /profile
+  controller: App\Controller\ProfileController::index
+  # defaults:
+  #   role: ROLE_USER
+
+# app_search:
+#   path: _partials/search    
+
+# # Modifier une adresse
+# app_updateAddress:
+#   path: /address/{id}/edit
+#   controller: App\Controller\ProfilController::updateAddress
+#   defaults:
+#     role: ROLE_USER
+
+# # Supprimer une adresse
+# app_deleteAddress:
+#   path: /address/{id}/delete
+#   controller: App\Controller\ProfilController::deleteAddress
+#   defaults:
+#     role: ROLE_USER
+
+# # Ajouter une adresse
+# app_addAddress:
+#   path: /address/new
+#   controller: App\Controller\ProfilController::addAddress
+#   defaults:
+#     role: ROLE_USER

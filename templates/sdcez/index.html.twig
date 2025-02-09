@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <header class="prod">
+        <img src="{{ asset('images/rubrics/') ~ lastRubric.featuredImage }}" alt="{{ lastPost.title }}">
+        <div class="prod-content">
+            {% for product in lastRubric.products %}
+                <span class="badge badge-primary badge-lg">{{ rubric.name }}</span>
+            {% endfor %}
+            <h2>{{ lastRubric.label }}</h2>
+            <div class="rub-content">{{ lastRubric.content }}</div>
+            <p>{{ lastRubric.user.firstname }}</p>
+        </div>
+    </header>
+    <div class="clear"></div>
+    <main class="container">
+        <section>
+            <h2 class="text-center my-5">Derniers arrivages!</h2>
+            <div class="grid">
+                {% for rubric in rubrics %}
+                    <article class="card">
+                        <img src="{{ asset('images/rubrics/mini/300x300-') ~ post.featuredImage }}" alt="{{ post.title }}">
+                        <div class="card-body">
+                            {% for rubric in product.rubrics %}
+                                <span class="badge badge-primary">{{ rubric.name }}</span>
+                            {% endfor %}
+                            <h3>{{ rubric.label }}</h3>
+                            <p>{{ rubric.user.firstname }}</p>
+                        </div>
+                    </article>
+                {% endfor %}                
+            </div>
+
+        </section>
+        <section>
+            <h2>Stocks</h2>
+            {% for order in orders %}
+                <h3>{{ order[0].name }} {{order.total}}</h3>
+            {% endfor %}
+        </section>
+    </main>
+{% endblock %}

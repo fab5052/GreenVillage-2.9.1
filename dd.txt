@@ -1,0 +1,402 @@
+    Produit
+        ID_Produit (PK)
+        LibelléCourt
+        LibelléLong (description)
+        RéférenceFournisseur
+		RéférenceSlug
+        PrixAchatHT
+        Photo
+        Stock
+		Created_at (
+        Actif (booléen)
+        ID_SousRubrique (FK)
+
+    Rubrique
+        ID_Rubrique (PK)
+        NomRubrique
+
+    SousRubrique
+        ID_SousRubrique (PK)
+        NomSousRubrique
+        ID_Rubrique (FK)
+
+    Fournisseur
+        ID_Fournisseur (PK)
+        NomFournisseur
+        Adresse
+        Téléphone
+        Email
+
+    Client
+        ID_Client (PK)
+        TypeClient (Particulier/Professionnel)
+        Nom
+        Prénom (si particulier)
+        RaisonSociale (si professionnel)
+        Email
+        Téléphone
+        AdresseFacturation
+        AdresseLivraison
+        Coefficient
+        ID_Commercial (FK)
+
+    Commercial
+        ID_Commercial (PK)
+        Nom
+        Prénom
+        Email
+        Téléphone
+
+    Commande
+        ID_Commande (PK)
+        DateCommande
+        Statut (En attente, Expédiée, Partiellement expédiée)
+        Réduction (si client professionnel)
+        ID_Client (FK)
+
+    LigneCommande
+        ID_LigneCommande (PK)
+        Quantité
+        PrixUnitaireHT
+        TotalHT
+        ID_Commande (FK)
+        ID_Produit (FK)
+
+    Paiement
+        ID_Paiement (PK)
+        Montant
+        ModePaiement (Virement, Chèque, CB)
+        DatePaiement
+        ID_Commande (FK)
+
+    Facture
+        ID_Facture (PK)
+        DateFacture
+        TotalHT
+        TotalTTC
+        ID_Commande (FK)
+
+    BonLivraison
+        ID_BonLivraison (PK)
+        DateBonLivraison
+        ID_Commande (FK)
+
+Relations entre les entités
+
+    Rubrique ↔ SousRubrique : Une rubrique peut avoir plusieurs sous-rubriques, mais une sous-rubrique appartient à une seule rubrique.
+        Relation : 1,1 ↔ 0,N
+
+    SousRubrique ↔ Produit : Une sous-rubrique peut contenir plusieurs produits, mais un produit appartient à une seule sous-rubrique.
+        Relation : 1,1 ↔ 0,N
+
+    Fournisseur ↔ Produit : Un fournisseur peut fournir plusieurs produits, mais un produit est fourni par un seul fournisseur.
+        Relation : 1,1 ↔ 0,N
+
+    Client ↔ Commande : Un client peut passer plusieurs commandes, mais une commande appartient à un seul client.
+        Relation : 1,1 ↔ 0,N
+
+    Commercial ↔ Client : Un commercial peut gérer plusieurs clients, mais un client est suivi par un seul commercial.
+        Relation : 1,1 ↔ 0,N
+
+    Commande ↔ LigneCommande : Une commande peut contenir plusieurs lignes de commande, mais une ligne de commande appartient à une seule commande.
+        Relation : 1,1 ↔ 0,N
+
+    Commande ↔ Paiement : Une commande peut être associée à un ou plusieurs paiements, mais un paiement appartient à une seule commande.
+        Relation : 1,N ↔ 0,N
+
+    Commande ↔ Facture : Une commande génère une seule facture, mais une facture est associée à une seule commande.
+        Relation : 1,1 ↔ 0,1
+
+    Commande ↔ BonLivraison : Une commande peut être associée à plusieurs bons de livraison, mais un bon de livraison appartient à une seule commande.
+        Relation : 1,1 ↔ 0,N
+
+    Produit ↔ LigneCommande : Un produit peut apparaître dans plusieurs lignes de commande, mais une ligne de commande concerne un seul produit.
+        Relation : 1,N ↔ 1,1
+		
+		
+CREATE TABLE rubric(
+   rub_id INT AUTO_INCREMENT,
+   rub_label VARCHAR(100)  NOT NULL,
+   rub_slug VARCHAR(50)  NOT NULL,
+   rub_desc TEXT,
+   rub_img VARCHAR(50) ,
+   rub_id_rub_parent_id INT NOT NULL,
+   PRIMARY KEY(rub_id),
+   UNIQUE(rub_slug),
+   FOREIGN KEY(rub_id_rub_parent_id) REFERENCES rubric(rub_id)
+);
+
+CREATE TABLE service(
+   serv_id INT AUTO_INCREMENT,
+   serv_type ENUM ('apres-vente','commercial','comptabilite','equipe'),
+   PRIMARY KEY(serv_id)
+);
+
+CREATE TABLE utilisateur(
+   user_id INT AUTO_INCREMENT,
+   user_ref VARCHAR(50)  NOT NULL,
+   user_firstname VARCHAR(100)  NOT NULL,
+   user_lastname VARCHAR(100)  NOT NULL,
+   user_phone VARCHAR(20) ,
+   user_email VARCHAR(255)  NOT NULL,
+   user_passwd VARCHAR(255)  NOT NULL,
+   user_role ENUM ( 'admin','user')  NOT NULL,
+   coef DECIMAL (5,2) DEFAULT 0 NOT NULL,
+   user_type ENUM ('particulier', 'professionnel'),
+   user_siret VARCHAR(20) ,
+   user_last_conn DATETIME NOT NULL,
+   serv_id INT,
+   PRIMARY KEY(user_id),
+   UNIQUE(user_ref),
+   UNIQUE(user_email),
+   UNIQUE(user_siret),
+   FOREIGN KEY(serv_id) REFERENCES service(serv_id)
+);
+
+CREATE TABLE address(
+   adr_id INT AUTO_INCREMENT,
+   adr_city VARCHAR(100)  NOT NULL,
+   adr_address VARCHAR(255)  NOT NULL,
+   adr_type ENUM ('livraison', 'facturation') NOT NULL,
+   adr_cp VARCHAR(50)  NOT NULL,
+   is_default BOOLEAN DEFAULT false,
+   user_id INT NOT NULL,
+   PRIMARY KEY(adr_id),
+   FOREIGN KEY(user_id) REFERENCES utilisateur(user_id)
+);
+
+CREATE TABLE supplier_details(
+   spl_id INT AUTO_INCREMENT,
+   spl_siret VARCHAR(50)  NOT NULL,
+   spl_type ENUM ('importateur', 'constructeur') NOT NULL,
+   spl_status BOOLEAN NOT NULL,
+   user_id INT NOT NULL,
+   PRIMARY KEY(spl_id),
+   UNIQUE(spl_siret),
+   FOREIGN KEY(user_id) REFERENCES utilisateur(user_id)
+);
+
+CREATE TABLE product(
+   prod_id INT AUTO_INCREMENT,
+   prod_label VARCHAR(100)  NOT NULL,
+   prod_ref VARCHAR(50)  NOT NULL,
+   prod_slug VARCHAR(100)  NOT NULL,
+   prod_desc TEXT,
+   prod_price DECIMAL(15,2)   NOT NULL,
+   prod_stock INT NOT NULL,
+   created_at DATETIME,
+   updated_at DATETIME,
+   spl_id INT NOT NULL,
+   rub_id INT NOT NULL,
+   PRIMARY KEY(prod_id),
+   UNIQUE(prod_ref),
+   UNIQUE(prod_slug),
+   FOREIGN KEY(spl_id) REFERENCES supplier_details(spl_id),
+   FOREIGN KEY(rub_id) REFERENCES rubric(rub_id)
+);
+
+CREATE TABLE order_history(
+   ord_id INT AUTO_INCREMENT,
+   ord_date DATETIME,
+   ord_ref VARCHAR(50)  NOT NULL,
+   ord_status ENUM ('en attente', 'expédiée', 'partiellement expédiée', 'livrée') NOT NULL,
+   payment_date DATETIME NOT NULL,
+   archive_doc VARCHAR(255) ,
+   payment_method ENUM  ('virement', 'chèque', 'carte bancaire') NOT NULL,
+   total DECIMAL(15,2)   NOT NULL,
+   invoice_date DATETIME,
+   payment_status ENUM ('en attente', 'validé', 'refusée') NOT NULL,
+   archive_type ENUM ('facture',' bon de livraison') NOT NULL,
+   user_id INT NOT NULL,
+   PRIMARY KEY(ord_id),
+   UNIQUE(ord_ref),
+   FOREIGN KEY(user_id) REFERENCES utilisateur(user_id)
+);
+
+CREATE TABLE delivery(
+   deliv_id INT AUTO_INCREMENT,
+   deli_date DATETIME NOT NULL,
+   shipping_note VARCHAR(100) ,
+   ord_id INT NOT NULL,
+   PRIMARY KEY(deliv_id),
+   FOREIGN KEY(ord_id) REFERENCES order_history(ord_id)
+);
+
+CREATE TABLE image(
+   img_id INT AUTO_INCREMENT,
+   prod_img VARCHAR(255) ,
+   prod_id INT NOT NULL,
+   PRIMARY KEY(img_id),
+   FOREIGN KEY(prod_id) REFERENCES product(prod_id)
+);
+
+CREATE TABLE orders_details(
+   prod_id INT,
+   ord_id INT,
+   det_qty INT NOT NULL CHECK (det_qty > 0) NOT NULL,
+   det_price DECIMAL(15,2)   NOT NULL,
+   PRIMARY KEY(prod_id, ord_id),
+   FOREIGN KEY(prod_id) REFERENCES product(prod_id),
+   FOREIGN KEY(ord_id) REFERENCES order_history(ord_id)
+);
+
+CREATE TABLE delivery_details(
+   prod_id INT,
+   deliv_id INT,
+   shipped_qty INT NOT NULL CHECK (shipped_qty >= 0),
+   PRIMARY KEY(prod_id, deliv_id),
+   FOREIGN KEY(prod_id) REFERENCES product(prod_id),
+   FOREIGN KEY(deliv_id) REFERENCES delivery(deliv_id)
+);
+		
+		
+		
+SELECT `id`, `libelle`, `slug`, `description`, `image`, `rubrique_parent_id`, `parent_id`, `rubrique_id` FROM `rubrique` WHERE 1SELECT 
+    r.rubrique_id AS rubriqueID,
+    r.rubrique_libelle AS rubriqueLibelle,
+    sr.rubrique AS SousRubriqueID,
+    sr.NomSousRubrique AS SousRubriqueName
+FROM 
+    rubrique r
+LEFT JOIN 
+    SousRubrique sr ON r.ID_Rubrique = sr.ID_Rubrique;
+	
+	
+	
+rubriq principale:
+
+INSERT INTO rubrique (nom, parent_id) VALUES ('Informatique', NULL);
+
+
+sous-rubriq:
+
+INSERT INTO rubrique (nom, parent_id) VALUES ('Programmation', 1);
+
+
+
+
+REQUÊTES SQL AVEC PARENT_ID NULLABLE
+
+Pour sélectionner uniquement les rubriques principales :
+
+SELECT * FROM rubrique WHERE parent_id IS NULL;
+
+
+Pour sélectionner les sous-rubriques d'une rubrique donnée (exemple : id = 1) :
+
+SELECT * FROM rubrique WHERE parent_id = 1;
+
+
+
+GESTION DES RUBRIQUES PRINCIPALES
+
+gérer la création et la lecture des rubriques principales et sous-rubriques :
+
+$rubrique = new Rubrique();
+$rubrique->setNom('Informatique');
+$rubrique->setParent(null); // Pas de parent, donc rubrique principale.
+
+$entityManager->persist($rubrique);
+$entityManager->flush();
+
+
+
+$sousRubrique = new Rubrique();
+$sousRubrique->setNom('Programmation');
+$sousRubrique->setParent($rubrique); // La rubrique "Informatique" est le parent.
+
+$entityManager->persist($sousRubrique);
+$entityManager->flush();
+
+
+
+Dictionnaire de données
+Table RUBRIC (Rubriques)
+Champ 	Type 	Taille 	Description 	Contraintes
+rub_id 	INT 	- 	Identifiant unique de la rubrique 	Clé primaire, Auto-increment
+rub_label 	VARCHAR 	100 	Libellé de la rubrique 	NOT NULL
+rub_slug 	VARCHAR 	50 	Slug URL de la rubrique 	NOT NULL, UNIQUE
+rub_desc 	TEXT 	- 	Description de la rubrique 	-
+rub_id_rub_parent_id 	INT 	- 	ID de la rubrique parente 	NOT NULL, Clé étrangère vers rubric(rub_id)
+Table SERVICE
+Champ 	Type 	Taille 	Description 	Contraintes
+serv_id 	INT 	- 	Identifiant unique du service 	Clé primaire, Auto-increment
+serv_type 	ENUM 	- 	Type de service 	Valeurs: 'apres-vente', 'commercial', 'comptabilite', 'equipe'
+Table UTILISATEUR
+Champ 	Type 	Taille 	Description 	Contraintes
+user_id 	INT 	- 	Identifiant unique de l'utilisateur 	Clé primaire, Auto-increment
+user_ref 	VARCHAR 	50 	Référence unique de l'utilisateur 	NOT NULL, UNIQUE
+user_firstname 	VARCHAR 	100 	Prénom de l'utilisateur 	NOT NULL
+user_lastname 	VARCHAR 	100 	Nom de l'utilisateur 	NOT NULL
+user_phone 	VARCHAR 	20 	Numéro de téléphone 	NOT NULL , UNIQUE
+user_email 	VARCHAR 	255 	Adresse email 	NOT NULL, UNIQUE
+user_passwd 	VARCHAR 	255 	Mot de passe 	NOT NULL
+user_role 	ENUM 	- 	Rôle de l'utilisateur 	NOT NULL, Valeurs: 'admin', 'user'
+coef 	DECIMAL 	(5,2) 	Coefficient 	NOT NULL, DEFAULT 0
+user_type 	ENUM 	- 	Type d'utilisateur 	Valeurs: 'particulier', 'professionnel'
+user_siret 	VARCHAR 	20 	Numéro SIRET 	UNIQUE
+serv_id 	INT 	- 	ID du service 	Clé étrangère vers service(serv_id)
+Table ADDRESS
+Champ 	Type 	Taille 	Description 	Contraintes
+adr_id 	INT 	- 	Identifiant unique de l'adresse 	Clé primaire, Auto-increment
+adr_city 	VARCHAR 	100 	Ville 	NOT NULL
+adr_address 	VARCHAR 	255 	Adresse 	NOT NULL
+adr_type 	ENUM 	- 	Type d'adresse 	NOT NULL, Valeurs: 'livraison', 'facturation'
+adr_cp 	VARCHAR 	50 	Code postal 	NOT NULL
+is_default 	BOOLEAN 	- 	Adresse par défaut 	DEFAULT false
+user_id 	INT 	- 	ID de l'utilisateur 	NOT NULL, Clé étrangère vers utilisateur(user_id)
+Table SUPPLIER_DETAILS
+Champ 	Type 	Taille 	Description 	Contraintes
+spl_id 	INT 	- 	Identifiant unique du fournisseur 	Clé primaire, Auto-increment
+spl_siret 	VARCHAR 	50 	Numéro SIRET du fournisseur 	NOT NULL, UNIQUE
+spl_type 	ENUM 	- 	Type de fournisseur 	NOT NULL, Valeurs: 'importateur', 'constructeur'
+spl_status 	BOOLEAN 	- 	Statut du fournisseur 	NOT NULL
+spl_discount 	DECIMAL 	(5,2) 	Remise fournisseur 	DEFAULT 0
+user_id 	INT 	- 	ID de l'utilisateur 	NOT NULL, Clé étrangère vers utilisateur(user_id)
+Table PRODUCT
+Champ 	Type 	Taille 	Description 	Contraintes
+prod_id 	INT 	- 	Identifiant unique du produit 	Clé primaire, Auto-increment
+prod_label 	VARCHAR 	100 	Libellé du produit 	NOT NULL
+prod_ref 	VARCHAR 	50 	Référence du produit 	NOT NULL, UNIQUE
+prod_slug 	VARCHAR 	100 	Slug URL du produit 	NOT NULL, UNIQUE
+prod_desc 	TEXT 	- 	Description du produit 	-
+prod_price 	DECIMAL 	(15,2) 	Prix du produit 	NOT NULL
+prod_stock 	INT 	- 	Stock disponible 	NOT NULL
+spl_id 	INT 	- 	ID du fournisseur 	NOT NULL, Clé étrangère vers supplier_details(spl_id)
+rub_id 	INT 	- 	ID de la rubrique 	NOT NULL, Clé étrangère vers rubric(rub_id)
+Table ORDER_HISTORY
+Champ 	Type 	Taille 	Description 	Contraintes
+ord_id 	INT 	- 	Identifiant unique de la commande 	Clé primaire, Auto-increment
+ord_ref 	VARCHAR 	50 	Référence de la commande 	NOT NULL , UNIQUE
+ord_date 	DATETIME 	- 	Date de la commande 	NOT NULL
+ord_status 	ENUM 	- 	Statut de la commande 	NOT NULL, Valeurs: 'en attente', 'expédiée', 'partiellement expédiée', 'livrée'
+payment_date 	DATETIME 	- 	Date du paiement 	NOT NULL
+archive_doc 	VARCHAR 	255 	Document d'archive 	-
+payment_method 	ENUM 	- 	Méthode de paiement 	NOT NULL, Valeurs: 'virement', 'chèque', 'carte bancaire'
+total 	DECIMAL 	(15,2) 	Montant total 	NOT NULL
+invoice_date 	DATETIME 	- 	Date de facturation 	-
+payment_status 	ENUM 	- 	Statut du paiement 	NOT NULL, Valeurs: 'en attente', 'validé', 'refusée'
+archive_type 	ENUM 	- 	Type d'archive 	NOT NULL, Valeurs: 'facture', 'bon de livraison'
+user_id 	INT 	- 	ID de l'utilisateur 	NOT NULL, Clé étrangère vers utilisateur(user_id)
+Table DELIVERY
+Champ 	Type 	Taille 	Description 	Contraintes
+deliv_id 	INT 	- 	Identifiant unique de la livraison 	Clé primaire, Auto-increment
+deli_date 	DATETIME 	- 	Date de livraison 	NOT NULL
+shipping_note 	VARCHAR 	100 	Note de livraison 	-
+ord_id 	INT 	- 	ID de la commande 	NOT NULL, Clé étrangère vers order_history(ord_id)
+Table IMAGE
+Champ 	Type 	Taille 	Description 	Contraintes
+img_id 	INT 	- 	Identifiant unique de l'image 	Clé primaire, Auto-increment
+prod_img 	VARCHAR 	255 	Chemin de l'image 	-
+prod_id 	INT 	- 	ID du produit 	NOT NULL, Clé étrangère vers product(prod_id)
+Table ORDERS_DETAILS
+Champ 	Type 	Taille 	Description 	Contraintes
+prod_id 	INT 	- 	ID du produit 	Clé primaire, Clé étrangère vers product(prod_id)
+ord_id 	INT 	- 	ID de la commande 	Clé primaire, Clé étrangère vers order_history(ord_id)
+det_qty 	INT 	- 	Quantité commandée 	NOT NULL, CHECK (det_qty > 0)
+det_price 	DECIMAL 	(15,2) 	Prix unitaire 	NOT NULL
+Table DELIVERY_DETAILS
+Champ 	Type 	Taille 	Description 	Contraintes
+prod_id 	INT 	- 	ID du produit 	Clé primaire, Clé étrangère vers product(prod_id)
+deliv_id 	INT 	- 	ID de la livraison 	Clé primaire, Clé étrangère vers delivery(deliv_id)
+shipped_qty 	INT 	- 	Quantité livrée 	NOT NULL, CHECK (shipped_qty >= 0)

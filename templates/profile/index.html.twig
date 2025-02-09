@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre Profile !{% endblock %}
+
+
+{% block body %}
+
+{% use "bootstrap_5_layout.html.twig" %}
+
+{# {% if error %}
+	<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %} #}
+
+<main class="main">
+
+{% if app.user %}
+<div class="container mx-auto justify-content-center" id="mentions" >
+    <div class='row mt-5'>
+        <div class='col-sm-8 offset-sm-2'>
+<h1>Heureux de vous revoir  {{app.user.firstname}} !!!</h1>
+
+	<div class="table table-light table-hover mb-3">
+		Votre indentifiant de connexion:
+		{{ app.user.userIdentifier }},
+	</div>
+</div>
+</div>
+</div>
+
+<div class='container justify-content-center'>
+    <div class='row mt-5'>
+        <div class='col-sm-8 offset-sm-2'>
+        <h1 class='justify-content-center d-flex'>Vos informations</h1>
+<table class ='table table-light table-hover mt-5'>
+<thead>
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Adresse</th>
+        <th>Code Postal</th>
+        <th>Ville</th>
+    </tr>
+</thead>
+
+
+<tbody>
+    <tr>
+        <td>{{ app.user.lastname }}</td>
+        <td>{{ app.user.firstname }}</td>
+        <td>{{ app.user.email }}</td>
+        <td>{{ app.user.address }}</td>
+        <td>{{ app.user.zipcode }}</td>
+        <td>{{ app.user.city }}</td>
+    </tr>
+</tbody>
+</table>
+
+<div class="card col-sm-8 offset-sm-2 justify-content-center">     
+  <div class="card-body justify-content-center d-block">
+   <h3>Voir vos commandes</h3>
+            <p>Cliquer ici pour voir les informations sur vos commandes...</p>
+            <a href="{{path ('app_orders')}}" class="btn btn-link d-flex justify-content-center" type="button">Détails/Commandes</a>
+            </div>
+    </div>
+
+{% endif %}
+
+
+        </div>
+    </div>
+</div>
+
+
+{% if not app.user %}
+<div class="container" id="mentions" >
+<div class="row col-12  m-3 d-flex align-content-center justify-content-center">
+<h1>Connexion/Inscription</h1>
+
+
+<div class="card col-3 m-3">
+		<h3>Connexion</h3>
+		<div class="card-body">
+			<p>Vous avez deja un compte connectez vous des maintenant !!!</p>
+			<a href="{{path ('app_login')}}" class="btn btn-link d-flex justify-content-center" type="button">Se Connecter</a>
+		</div>
+	</div>
+
+	<div class="card col-3 m-3">
+		<h3>Inscription</h3>
+		<div class="card-body">
+			<p>Vous n'avez toujours pas de compte pour en cree un c'est juste ici !!!</p>
+			<a href="{{path ('app_register')}}" class="btn btn-link d-flex justify-content-center" type="button">S'inscrire</a>
+		</div>
+	</div>
+
+
+
+</div>
+
+{% else %}
+<a href="{{ path('app_logout') }}" class="btn btn-link d-block justify-content-center" type="button">Se deconnecté</a>
+    {% endif %}
+</div>
+</main>
+
+
+{% endblock %}

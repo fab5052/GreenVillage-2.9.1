@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits{% endblock %}
+
+{% block body %}
+    {# <nav aria-label="breadcrumb" class="mt-2">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+
+        <li class="breadcrumb-item"><a href="{{ path('app_products', { rubrics: rubric.slug }) }}">{{ rubric.label }}</a></li>
+
+    </ol>
+    </nav> #}
+    <main class="container">    
+    {% for rubrics in rubric %}
+    <div class="row">  
+    
+        {% for rubrics in rubric.rubrics %}
+            <div class="col-12 col-sm-6 col-md-4 col-xl-3 mt-2 ">
+                <div class="rubric text-center">
+                  
+                        {# <div class="card">
+                            <img src="/images/{{ rubric.image }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ rubric.nom }}</h5>
+                                
+                            </div>
+                        </div> #}
+                        <img src="/images/{{ rubrics.image }}" class="img-fluid  img-rubric">
+                        <div class="text-center rubric-texte">
+                            {{ rubrics.label }}
+                        </div>
+                             {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+ <div class="pagination">
+    {{ knp_pagination_render(pagination) }}
+</div>
+    {% for rubric in rubrics %}
+        <img src="{{ asset('images/rubrics/') }}">
+        <div class="prod-content">
+            {% for product in rubrics %}
+                <span class="badge badge-primary badge-lg">{{ rubric.label }}</span>
+            {% endfor %}
+            <h2>{{ rubric.label }}</h2>
+            <div class="rub-content">{{ rubric.description }}</div>
+            {# <p>{{ lastRubric.user.firstname }}</p> #}
+        </div>
+         {% endfor %}
+
+    <div class="clear"></div>
+    <div class="container">
+        <section>
+            <h2 class="text-center my-5">Derniers arrivages!</h2>
+            <div class="grid">
+                {% for rubric in rubrics %}
+                    <article class="card">
+                        <img src= "{{ asset('images/rubric') }}">
+                        <div class="card-body">
+                            {% for product in products %}
+                                <span class="badge badge-primary">{{ rubric.label }}</span>
+                            {% endfor %}
+                            <h3>{{ rubric.label }}</h3>
+                            {# <p>{{ rubric.user.firstname }}</p> #}
+                        </div>
+                    </article>
+                {% endfor %}                
+            </div>
+
+        </section> 
+        {# <section>
+            <h2>Stocks</h2>
+            {% for order in orders %}
+                <h3>{{ order[0].name }} {{order.total}}</h3>
+            {% endfor %}
+        </section> #}
+    </main>
+{% endblock %}
+

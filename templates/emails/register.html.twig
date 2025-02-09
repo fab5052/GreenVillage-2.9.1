@@ -1,0 +1,6 @@
+<h1>Activation de votre compte sur Village Green</h1>
+<p>Bonjour {{ user.firstname }},</p>
+<p>Pour activer votre compte sur notre site cliquez sur le lien ci-dessous.</p>
+<p><a href="{{ absolute_url(path('verif_user', {token: token})) }}">Lien</a></p>
+
+<p>Merci</p>

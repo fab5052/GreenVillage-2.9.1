@@ -1,0 +1,1386 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}
+Village Green | Accueil
+{% endblock %}
+
+{% block body %}
+{% block stylesheets %}
+{#
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+<style>
+	/*.item .cards {
+		justify-content: center;
+		align-items: center;
+		
+		border-radius: 15px;
+		cursor: pointer;
+		background-color: transparent;
+		position: relative;
+	
+	}
+
+
+	.container-carousel {
+		perspective: 1200px;
+		position: relative;
+		width: 300px;
+		height: 300px;
+		margin: 0 auto;
+		transform-origin: center center;
+		transform-style: preserve-3d;
+		transition: transform 1.5s;
+	}
+
+	.carousel {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		transform-style: preserve-3d;
+		transition: transform 1s ease-in-out;
+	}
+
+
+	.item img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: 10px;
+	}
+
+	button.prev,
+	button.next {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		background: rgba(0, 0, 0, 0.5);
+		color: #fff;
+		border: none;
+		padding: 10px;
+		cursor: pointer;
+	}
+
+	button.prev {
+		left: -250px;
+	}
+
+	button.next {
+		right: -350px;
+	}
+
+	.item h2 {
+		z-index: 1;
+		position: absolute;
+		justify-content: center;
+		color: #ebd7b5;
+		font-size: 4vh;
+		text-shadow: -1px -1px 10px rgba(0, 0, 0, 0.9);
+		font-weight: 700;
+		overflow: hidden;
+		margin-left: 30px;
+z-index: 9;
+
+
+	}
+
+	h5 {
+		color: rgb(154, 146, 77);
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+		font-size: 18px;
+		text-shadow: 4px solid #FFF;
+		font-weight: 600;
+
+	}
+
+	.next,
+	.prev {
+		color: #444;
+		position: absolute;
+		top: 1300px;
+		padding-bottom: 15px;
+
+		padding: 0.5em 2em;
+		cursor: pointer;
+		background: #a5969662;
+		max-height: 40px;
+		border-radius: 5px;
+		border-top: 1px solid #FFF;
+		box-shadow: -1px 3px 0 #999;
+		transition: box-shadow 0.1s, top 0.1s;
+	}
+
+	.next:hover,
+	.prev:hover {
+		color: #000;
+		top: 1300px;
+	}
+
+	.next:active,
+	.prev:active {
+		top: 1300px;
+		box-shadow: 1px 0 3px 1px #88a9b6;
+
+	}
+
+	.next {
+		right: 5.1em;
+	}
+
+	.prev {
+		left: 5em;
+	}
+
+	.rubric-button {
+		background-color: #46484ad2;
+		color: #fff;
+		font-size: 16px;
+		padding: none;
+		margin: 10px 0px;
+		border-radius: 5px;
+		transition: background-color 0.3s ease;
+		cursor: pointer;
+		width: 25%;
+	}
+	
+	.rubric-button:hover {
+		background-color: #2779bd;
+	}
+	
+	.card.rub {
+		max-width:90%;
+	}
+	.rubric-nav {
+		width: auto;
+		margin-left: 25px;
+	}
+	@media (max-width: 768px) {
+		.container-carousel {
+			width: 220px;
+			height: 250px;
+			padding: auto center;
+			margin-top: 15px;
+			margin-bottom: 300px;
+			position: relative;
+			perspective: 200;
+			transform-style: preserve-3d;
+			transition: transform 1.5s;
+			justify-content: center;
+			justify-items: center;
+			align-items: center;
+		}
+
+		.item {
+			display: block;
+			position: absolute;
+			width: 200px;
+			height: 250px;
+			justify-content: center;
+			align-items: center;
+			opacity: 0.95;
+			border-radius: 10px;
+			justify-items: center;
+
+		}
+
+		.item .cards {
+			justify-content: center;
+			align-items: center;
+
+			border-radius: 15px;
+			cursor: pointer;
+			background-color: transparent;
+
+		}
+
+		.item img {
+
+			height: 100%;
+			width: 100%;
+		}
+
+		.item h2 {
+			height: 100px;
+			width: 100px;
+			font-size: 3.8vw;
+			text-shadow: -1px -1px 9px rgba(0, 0, 0, 0.9);
+			font-weight: 750;
+			color: #ebd7b5;
+			align-items: center;
+			margin-left: 25px;
+		}
+
+		h5 {
+			font-size: 2.6vw;
+			text-shadow: -1px -1px 2px rgba(0, 0, 0, 0.25);
+			font-weight: 550;
+			margin: 0 auto;
+		}
+
+		.next,
+		.prev {
+			top: 1250px;
+			position: absolute;
+			height: 4vh;
+			width: 18vw;
+			margin-bottom: 50px;
+			margin: 0 auto;
+			padding: 0.6em 1.3em;
+
+
+		}
+
+		.next:hover,
+		.prev:hover {
+			color: #000;
+			top: 1250px;
+			padding: 0.5em 2em;
+
+			height: 4vh;
+			width: 18vw;
+
+
+		}
+
+		.next:active,
+		.prev:active {
+			top: 1250px;
+			padding: 0.5em 2em;
+
+			height: 4vh;
+			width: 18vw;
+			box-shadow: 0 0 0 1px #999;
+
+
+		}
+	}
+
+	@media (max-width: 480px),
+	(min-width: 479px) {
+		.container-carousel {
+			width: 125px;
+			height: 200px;
+			padding: 5px 0;
+			margin: 0 auto;
+			perspective: 500;
+			top: 250px;
+			margin-bottom: 300px;
+			margin-left: none;
+			margin-right: none;
+			position: relative;
+			transform-style: preserve-3d;
+			transition: transform 1.5s;
+			justify-content: center;
+		}
+
+		.item {
+			display: block;
+			position: absolute;
+			width: 125px;
+			height: 200px;
+			overflow: hidden;
+
+			opacity: 0.95;
+			border-radius: 10px;
+		}
+
+		.item .cards {
+			justify-content: center;
+			align-items: center;
+
+			border-radius: 15px;
+			cursor: pointer;
+			background-color: transparent;
+
+
+
+		}
+
+		.item img {
+			height: 100%;
+			width: 100%;
+		}
+
+		.item h2 {
+			font-size: 4.5vw;
+			text-shadow: -1px -1px 9px rgba(0, 0, 0, 0.9);
+			font-weight: 750;
+		}
+
+		.next,
+		.prev h5 {
+
+			font-size: 2vw;
+			text-shadow: -1px -1px 2px rgba(0, 0, 0, 0.5);
+			font-weight: 750;
+		}
+
+		.next,
+		.prev {
+			margin: auto;
+			top: 65%;
+			height: 4vh;
+			width: 18vw;
+			margin-bottom: 50px;
+			justify-content: center;
+
+		}
+
+		.next:hover,
+		.prev:hover {
+			padding: 0 2px;
+
+			color: #000;
+			top: 65%;
+			height: 4vh;
+			width: 18vw;
+			margin-bottom: 50px;
+
+		}
+
+		.next:active,
+		.prev:active {
+			padding: 0 2px;
+
+			top: 65%;
+			height: 4vh;
+			width: 18vw;
+			box-shadow: 0 0 1px 1px #999;
+			margin-bottom: 50px;
+
+		}
+	}
+
+	/*	#plats-container {
+			transition: opacity 0.5s 	tease-in-out;		
+			opacity: 0;			
+			max-height: 0;
+		}
+		
+		.container-plats {
+		flex-direction: row;
+		height: 30vh;
+		  margin: 15px;
+		  display: flex;
+		  
+		}
+		
+		#plats-container.show {
+			opacity: 1;
+			min-height: 1000px;
+			overflow: hidden;
+		
+				}
+		
+		a {
+		color: rgba(255, 255, 255, 1.45);
+		text-decoration: none;
+		text-shadow: -1px -1px 4px rgba(0, 0, 0, 0.45);
+		}
+		
+		a:hover {
+		  color: rgba(255, 255, 255, 3);
+				}
+		#plats-container.show .card {
+		
+			border-image: linear-gradient(#000000, #4d9f0c) 30;
+			transition: transform 0.5s ease;
+			cursor: pointer;
+			background-color: transparent;
+			border: none; 
+		}
+		
+		.img-card {
+		  height: 20vh;
+		  width: 25vw;
+		
+		} #
+		
+		
+		/* .button {
+		  display: flex;
+		  justify-content: center;
+		}
+		
+		.btn-link {
+		  background-color: transparent;
+		  border: 2px solid white;
+		  color: white;
+		  cursor: pointer;
+		  text-decoration: none;
+		  text-align: center;
+		  text-transform: uppercase;
+		
+		}
+		
+		
+		.btn-link:hover {
+		  color: black;
+		  background-color: white;
+		}
+		
+		
+		
+		
+		.description {
+		  border: 2px solid rgb(179, 166, 166);
+		  border-radius: 4px;
+		}  */
+</style>
+{% endblock %}
+{# <div>
+	<div class="bg"></div>
+	<div class="bg bg2"></div>
+	<div class="bg bg3"></div>
+	<div class="content"><img class="content" src="image/logo.png"></div>
+
+
+</div> #
+
+<main class="main ">
+	<section>
+		<h1>
+
+			<script src='js/slogan.js'></script>
+		</h1>
+	</section>
+
+	<div class="container-fluid mx-auto p-0 m-0">
+		<div class="row-cols-sm-2 offset-sm-0">
+			{% set rubric_images = {
+			'vent': '/image/rubric/rubric(2).jpg',
+			'percussions': '/image/rubric/rubric(3).jpg',
+			'cordes': '/image/rubric/rubric(1).jpg',
+			'electronique': '/image/rubric/rubric(4).jpg'
+			} %}
+
+			<ul class="accordion-group" id="accordion">
+				{% for rubric in rubrics %}
+				{{ rubric.slug }}
+				<li>
+
+					<a href="#" class="" data-parent-id="{{ rubric.slug }}">
+						<h2>
+							{{ rubric.label }}
+							<img src="{{ rubric_images[rubric.slug] }}" alt="Instruments {{ rubric.label }}"
+								class="cards">
+							{% set rubric_images = {
+							'vent': '/image/rubric/rubric(2).jpg',
+							'percussions': '/image/rubric/rubric(3).jpg',
+							'cordes': '/image/rubric/rubric(1).jpg',
+							'electronique': '/image/rubric/rubric(4).jpg'
+							} %}
+
+							<ul class="accordion-group" id="accordion">
+								{% for rubric in rubrics %}
+								{{ rubric.slug }}
+								<li>
+
+									<a href="#" class="" data-parent-id="{{ rubric.slug }}">
+										<h2>
+											{{ rubric.label }}
+											<img src="{{ rubric_images[rubric.slug] }}"
+												alt="Instruments {{ rubric.label }}" class="cards">
+										</h2>
+
+									</a>
+
+								</li>
+								{% endfor %}
+							</ul>
+
+		</div>
+	</div>
+
+
+	{# <div class="accordion-overlay cards">
+		<li>
+			{% for rubric in rubrics %}
+
+			<a>
+				<h2>{{ rubric.label}}</h2>
+				<img src="{{ asset('image/rubric/') }}">
+
+
+
+
+			</a>
+
+
+		</li>#}
+
+
+
+{# <button class="btn-primary p-1">Plats</button> #}
+
+
+
+
+
+
+
+
+
+{# <section>
+			<h2>Nos rubriques</h2>
+
+			<div id="plats-container" class="container-plats position-relative">
+				<div class="mb-3 d-block">
+
+					<div class="col-12 col-md-6 p-3 mb-4 d-flex justify-content-center">
+
+
+						<ul>
+							{% for rubric in rubrics %}
+							<li>
+								<a href="#">
+									{{ rubric.label}}
+								</a>
+							</li>
+							{% else %}
+							<li>Aucune rubrique trouvée.</li>
+							{% endfor %}
+						</ul>
+		</section> #}
+
+
+
+
+{# <img src="{{ asset(plat.image) }}" style=" object-fit: cover;"> #}
+
+
+{# <h5 class="card-title">{{ plat.libelle }}</h5>
+		<p class="card-text">{{ plat.description }}</p> #}
+
+{#
+	</div>
+	</div>
+	</div> #}
+
+{# <div class="container-fluid mx-auto mt-12 p-6 bg-gray-100 shadow-lg rounded-xl">
+		<h1 class="text-4xl font-bold text-gray-800 text-center mb-8">Rubriques</h1>
+		<div class="card-wrapper justify-content-center  d-flex text-center mb-2">
+			<div class="card-container">
+				{% for rubric in rubrics %}
+				<div
+					class="cards rubric-nav justify-content-center bg-blue-200 text-white font-bold py-2 d m-4('{{ rubric.id }}')">
+				</div>
+				{# onclick="showSubrubrics
+				<li>
+					<a>
+						<h2>{{ rubric.label}}</h2>
+					</a>
+				</li>
+
+
+				{# <img class="card-img-top" src="holder.js/100px180/" alt="">
+				<div class="card-body">
+					<h4 class="card-title">Title</h4>
+					<p class="card-text">Text</p>
+				</div>
+
+			</div>
+			{% if rubric.image %}
+			<img src="{{ rubric.image }}" alt="{{ rubric.label }}" class=" mx-auto justify-content-center h-32  mt-3">
+			{% endif %}
+		</div>
+		{% endfor %}
+	</div>
+	</div> #}
+
+
+	{% extends 'base.html.twig' %}
+
+	{% block title %}
+	Village Green | Accueil
+	{% endblock %}
+	
+	{% block body %}
+	{% block stylesheets %}
+	<style>
+		/*section .section {
+			max-height: 400px;
+			width: 100%;
+			min-width: 100vw;
+			margin: 0px auto;
+			position: relative;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-evenly;
+			flex-wrap: wrap;
+		}*/
+	div {
+		display: flex;
+	}
+
+	
+		.shutter-column {
+			height: auto;
+			width: 25vw;
+			position: relative;
+			background: #2b2929;
+			overflow-x: hidden;
+			overflow-y: hidden;
+			transition: all 500ms;
+			flex-direction: row;
+		}
+	
+		.on-click {
+			cursor: pointer;
+		}
+	
+		.back-img {
+			width: 600px;
+			max-width: 25vw;
+			height: 400px;
+			margin: 0 auto;
+		}
+	
+		.top-shutter,
+		.bottom-shutter {
+			position: absolute;
+			top: 0;
+			height: 50%;
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			background: rgba(218, 216, 216, 0.76);
+			transition: all 1s;
+			mix-blend-mode: screen;
+			text-align: center;
+			font-size: clamp(60px, 20vw, 80px);
+			font-weight: 700;
+			line-height: 0em;
+			color: #000;
+	
+		}
+	
+		.top-shutter {
+			align-items: flex-end;
+			transform-origin: 50% 0%;
+			transform: translateY(-100%);
+		}
+	
+		.bottom-shutter {
+			top: 50%;
+			align-items: flex-start;
+			transform-origin: 50% 100%;
+			transform: translateY(100%);
+		}
+	
+		.shutter-column.two:hover {
+			transform: scale(1.03);
+		}
+	
+		.divi-transform-none .top-shutter,
+		.divi-transform-none .bottom-shutter {
+			transform: none;
+		}
+	
+		.image-container {
+			display: flex;
+			flex-direction: row;
+			/* Active le mode flexbox */
+			/* 	gap: 1px;Espace entre les images */
+			/*	justify-content: center; 
+			align-items: center; */
+		}
+	
+		/*.item .cards {
+			justify-content: center;
+			align-items: center;
+			
+			border-radius: 15px;
+			cursor: pointer;
+			background-color: transparent;
+			position: relative;
+		
+		} */
+	
+	
+		/*.container-carousel {
+			perspective: 1200px;
+			position: relative;
+			width: 300px;
+			height: 300px;
+			margin: 0 auto;
+			transform-origin: center center;
+			transform-style: preserve-3d;
+			transition: transform 1.5s;
+		}
+	
+		.carousel {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			transform-style: preserve-3d;
+			transition: transform 1s ease-in-out;
+		}*/
+	
+		#contentContainer {
+			display: flex;
+			justify-content: center;
+			/* Centre horizontalement */
+			align-items: center;
+			/* Centre verticalement */
+			height: 80vh;
+			/* Ajuste à la hauteur de l'écran */
+			overflow: hidden;
+			width: 100vw;
+			transform-style: preserve-3d;
+			padding: 10px;
+			margin-bottom: 5%;
+			filter: drop-shadow(0px 20px 30px rgba(0, 0, 0, 0.5)); /* Ombre sous l'ensemble du carrousel */
+			animation: shadowEffect 5s infinite alternate ease-in-out;
+
+	
+	
+		}
+	
+		@keyframes shadowEffect {
+			0% { filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.3)); }
+			50% { filter: drop-shadow(0px 20px 30px rgba(0, 0, 0, 0.5)); }
+			100% { filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.3)); }
+		}
+
+		#carouselContainer {
+			position: relative;
+			width: 100%;
+			height: 100%;  
+			max-height: 1000px;
+			/* Ajuste selon le besoin */
+			display: flex;
+			justify-content: center;
+			/* Centre horizontalement */
+			align-items: center;
+			/* Centre verticalement */
+			transform-style: preserve-3d;
+			
+
+
+		}
+	
+		.container-carousel {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			transform-style: preserve-3d;
+			perspective: 3000px;
+			padding: 10px;
+		}
+	
+		#carouselItem {
+			position: absolute;
+			padding: 0;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			transform-style: preserve-3d;
+	
+		}
+	
+		.container-carousel .item {
+			width: 150px;
+			height: 280px;
+			justify-content: center;
+			align-items: center;
+			transform-style: preserve-3d;
+		}
+	
+		.carouselItem {
+			width: 100px;
+			/* Ajuste selon la taille des items */
+			height: 300px;
+			/* Ajuste selon la taille des items */
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: rgba(255, 255, 255, 0.1);
+			transform-style: preserve-3d;
+			
+	
+		}
+
+		shadow {
+		    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); 
+			transition: box-shadow 0.3s ease-in-out; 
+		}
+	
+		.carouselItem img {
+			max-width: 40vw;
+			height: 70vh;
+			object-fit: contain;
+			border-image: linear-gradient(#e1a85d, #edefec) 30; 
+			overflow: hidden;
+		}
+	
+
+		#carouselItem .item h2 {
+			z-index: 9;
+			position: relative;
+			color: rgba(167, 156, 56, 0.923);
+			border-color: linear-gradient(#e3ded8, #959c92) 50;
+			font-size: 1.9rem;
+			text-shadow: -1px 0px 2px rgba(71, 70, 70, 0.589);
+			font-weight: 900;
+			writing-mode: vertical-rl; /* Texte écrit de haut en bas */
+			text-orientation: upright; /* Permet de garder le texte droit */
+			margin: 0;
+			text-transform:  uppercase;
+			letter-spacing: -4px;
+		}
+		
+		#carouselItem .item p {
+			font-size: 8px;
+			color: rgba(211, 219, 219, 0.927);
+			text-shadow: -1px 0px 1px rgba(12, 12, 12, 0.819);
+			position: relative;
+			z-index: 9;
+			text-orientation: mixed; /* Maintient une lisibilité correcte */
+			margin-top: 50%;
+		}
+	
+		.carousel-content {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+		}
+		
+	
+		/* Superposition du texte */
+		.text-overlay {
+			position: relative;
+			z-index: 2;
+			color: rgba(99, 110, 110, 0.16);
+			font-weight: bold;
+			padding: 0 5px;
+			align-items: center;
+			text-shadow: 2px 2px 5px rgba(121, 118, 118, 0.807);
+			margin-bottom: 10px;
+		}
+		
+		/* Ajustement du titre */
+		/*.text-overlay h2 {
+			font-size: 2rem;
+			margin-bottom: 20px;
+			text-transform: uppercase;
+		}
+		
+		/* Ajustement du paragraphe 
+		.text-overlay p {
+			font-size: 1rem;
+			line-height: 1.0;
+			max-width: 80%;
+			margin: 0 auto;
+			align-items: center;
+		}*/
+
+		.btn {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			font-size: 3rem;
+			cursor: pointer;
+			color: white;
+			background: rgba(0, 0, 0, 0.5);
+			padding: 8px;
+			z-index: 10;
+			user-select: none;
+			transition: 0.3s;
+			width: 5vw;
+
+		}
+		
+		.btn:hover {
+			background: rgba(0, 0, 0, 0.8);
+		}
+		
+		/* Positionnement */
+		.prev {
+			left: 10px;
+		}
+		
+		.next {
+			right: 10px;
+		}
+		
+		/* Ajustement des icônes */
+		.btn i {
+			font-size: 2.5rem;
+			color: white;
+		}
+
+		/*h5 {
+			color: rgb(154, 146, 77);
+			font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+			font-size: 18px;
+			text-shadow: 4px solid #FFF;
+			font-weight: 600;
+	
+		}
+	*/
+
+	
+		@media (max-width: 768px) {
+			.container-carousel {
+				width: 220px;
+				height: 250px;
+				padding: auto center;
+				margin-top: 15px;
+				margin-bottom: 300px;
+				position: relative;
+				perspective: 200;
+				transform-style: preserve-3d;
+				justify-content: center;
+				justify-items: center;
+				align-items: center;
+			}
+	
+			.item {
+				display: block;
+				position: absolute;
+				width: 200px;
+				height: 250px;
+				justify-content: center;
+				align-items: center;
+				opacity: 0.95;
+				border-radius: 10px;
+				justify-items: center;
+	
+			}
+	
+			.item .cards {
+				justify-content: center;
+				align-items: center;
+	
+				border-radius: 15px;
+				cursor: pointer;
+				background-color: transparent;
+	
+			}
+	
+			.item img {
+	
+				height: 100%;
+				width: 100%;
+			}
+	
+			.item h2 {
+				height: 100px;
+				width: 100px;
+				font-size: 3.8vw;
+				text-shadow: -1px -1px 9px rgba(0, 0, 0, 0.9);
+				font-weight: 750;
+				color: #ebd7b5;
+				align-items: center;
+				margin-left: 25px;
+			}
+	
+			h5 {
+				font-size: 2.6vw;
+				text-shadow: -1px -1px 2px rgba(0, 0, 0, 0.25);
+				font-weight: 550;
+				margin: 0 auto;
+			}
+	
+			.btn {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				font-size: 3rem;
+				cursor: pointer;
+				color: white;
+				background: rgba(0, 0, 0, 0.5);
+				padding: 5px;
+				border-radius: 10px;
+				z-index: 10;
+				user-select: none;
+				transition: 0.3s;
+			}
+			
+			.btn:hover {
+				background: rgba(0, 0, 0, 0.8);
+			}
+			
+			/* Positionnement */
+			.prev {
+				left: 10px;
+			}
+			
+			.next {
+				right: 10px;
+			}
+			
+			/* Ajustement des icônes */
+			.btn i {
+				font-size: 2.5rem;
+				color: white;
+			}
+	
+			h5 {
+				color: rgb(154, 146, 77);
+				font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+				font-size: 18px;
+				text-shadow: 4px solid #FFF;
+				font-weight: 600;
+		
+			}
+	
+		}
+	
+		@media (max-width: 480px),
+		(min-width: 479px) {
+			.container-carousel {
+				width: 125px;
+				height: 200px;
+				padding: 5px 0;
+				margin: 0 auto;
+				perspective: 500;
+				top: 250px;
+				margin-bottom: 300px;
+				margin-left: none;
+				margin-right: none;
+				position: relative;
+				transform-style: preserve-3d;
+				transition: transform 1.5s;
+				justify-content: center;
+			}
+	
+			.item {
+				display: block;
+				position: absolute;
+				width: 125px;
+				height: 200px;
+				overflow: hidden;
+	
+				opacity: 0.95;
+				border-radius: 10px;
+			}
+	
+			.item .cards {
+				justify-content: center;
+				align-items: center;
+	
+				border-radius: 15px;
+				cursor: pointer;
+				background-color: transparent;
+	
+	
+	
+			}
+	
+			.item img {
+				height: 100%;
+				width: 100%;
+			}
+	
+			.item h2 {
+				font-size: 4.5vw;
+				text-shadow: -1px -1px 9px rgba(0, 0, 0, 0.9);
+				font-weight: 750;
+			}
+	
+
+	
+			h5 {
+				color: rgb(154, 146, 77);
+				font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+				font-size: 18px;
+				text-shadow: 4px solid #FFF;
+				font-weight: 600;
+		
+			}
+		}
+	
+			
+	</style>
+	{% endblock %}
+	
+	
+	<main class="main">
+		<section>
+			<h1>
+	
+				<script src='js/slogan.js'></script>
+			</h1>
+		</section>
+		<div data-state="open"
+			class="fixed inset-0 z-3000 flex justify-content-center max-h-screen flex-col items-center overflow-y-auto bg-foreground/25 px-0 py-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0 sm:px-6 sm:py-20"
+			style="pointer-events: auto;">
+			<div role="dialog" id="radix-:r1p:" aria-describedby="radix-:r1r:" aria-labelledby="radix-:r1q:"
+				data-state="open"
+				class="relative z-50 flex w-full grow flex-col gap-4 bg-background p-6 shadow-lg duration-200 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 sm:max-w-lg sm:grow-0 overflow-hidden px-0 py-12 sm:rounded-full sm:py-0 sm:pr-8"
+				tabindex="-1" style="pointer-events: auto;">
+				<form action="/search" method="GET">
+					<div class="sc-4af23993-0 sc-4af23993-1 sc-c5f855da-0 cNxEkG eAoFxa lgPbcs"><button
+							class="sc-4af23993-0 sc-4af23993-1 sc-c5f855da-2 lbrgwo gsBGsZ cqmBDy"><svg
+								xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 26 18" fill="none"
+								stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"
+								class="lucide lucide-search text-slate-500">
+								<circle cx="11" cy="9" r="9"></circle>
+								<path d="m21 21-4.3-4.3"></path>
+								<title>Search</title>
+							</svg></button><input type="search" name="q"
+							placeholder="Recherche d'instruments..." font-size="16px"
+							font-style="" letter-spacing="0" aria-label="Open Collective search input" autocomplete="on"
+							class="sc-4eabeb44-0 ikLYYW sc-4af23993-0 sc-c5f855da-1 fSBIaS hffIOQ" value=""><button
+							display="flex" size="42" class="sc-5f7ca055-0 dZKcLE sc-4c461090-0 cqmFuY"
+							style="background-color: rgb(68, 90, 84); color: rgb(50, 51, 52); width: 24px; height: 46px;"><span
+								class="sc-851a3ed2-0 sc-851a3ed2-1 kCvFFs">→</span></button></div>
+				</form><button type="button"
+					class="absolute top-4 right-4 rounded-sm opacity-80 ring-offset-background transition-opacity hover:opacity-100 focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"><svg
+						xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 24 24" fill="none"
+						stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"
+						class="lucide lucide-x h-4 w-4">
+						<path d="M18 6 6 18"></path>
+						<path d="m6 6 12 12"></path>
+					</svg><span class="sr-only">Fermer</span></button>
+			</div>
+		</div>
+		{# document.querySelector("body >
+			div.fixed.inset - 0.z - 3000.flex.max - h - screen.flex - col.items - center.overflow - y - auto.bg -
+			foreground\\/25.px-0.py-0.data-\\[state\\=closed\\]\\:animate-out.data-\\[state\\=closed\\]\\:fade-out-0.data-\\[state\\=open\\]\\:animate-in.data-\\[state\\=open\\]\\:fade-in-0.sm\\:px-6.sm\\:py-20")
+			#}
+
+		{% set rubric_images = {
+			'vent': '/image/rubric/rubric(2).jpg',
+			'percus': '/image/rubric/rubric(3).jpg',
+			'cordes': '/image/rubric/rubric(1).jpg',
+			'electro': '/image/rubric/rubric(4).jpg'
+			} %}
+		<div class="container-xxl d-flex w-100 mx-auto p-0 ml--1">
+			<div class="row-cols-sm-2 d-flex offset-0 p-0 ml-0">
+	
+	
+				{% for rubric in rubrics %}
+	
+				<div class="shutter-column on-hover divi-transform-none">
+					{# < div class="image-container img-back position-relative  d-flex"> #}
+					<img src="{{ rubric_images[rubric.slug] }}" alt="" class="back-img ">
+					{#
+					</div> #}
+					<div class="top-shutter">
+						{{ rubric.slug }}
+					</div>
+					<div class="bottom-shutter">
+						{{ rubric.slug }}
+					</div>
+				</div>
+	
+				{% endfor %}
+			</div>
+		</div>
+		
+		<aside class="social-sidebar">
+			<a href="https://www.facebook.com" target="_blank" class="social-btn facebook" aria-label="Facebook">
+				<i class="fab fa-facebook-f"></i>
+			</a>
+			<a href="https://www.twitter.com" target="_blank" class="social-btn twitter" aria-label="Twitter">
+				<i class="fab fa-twitter"></i>
+			</a>
+			<a href="https://www.instagram.com" target="_blank" class="social-btn instagram" aria-label="Instagram">
+				<i class="fab fa-instagram"></i>
+			</a>
+			<a href="https://www.linkedin.com" target="_blank" class="social-btn linkedin" aria-label="LinkedIn">
+				<i class="fab fa-linkedin-in"></i>
+			</a>
+		</aside>
+	
+
+		{% set subrubric_images = {
+			'saxo': '/image/subrubric(1).png',
+			'trompette': '/image/subrubric(2).png',
+			'guitare': '/image/subrubric(5).png',
+			'piano': '/image/subrubric(6).png',
+			'batterie': '/image/subrubric(3).png',
+			'tamtam': '/image/subrubric(4).png',
+			'synthetiseur': '/image/subrubric(7).png',
+			'amplificateur': '/image/subrubric(8).png',
+			} %}
+<div class="container-fluid w-100 h-100" style="height: auto; width: 100%">
+			<div id="contentContainer" class="trans3d">
+				<section id="carouselContainer" class="trans3d">
+					<div class="container container-carousel">
+						{% for rubric in rubrics %}
+							{% set subrubrics = rubric.getRubrics() %}
+							<div id="carouselItem" class="carousel">
+								{% for subrubric in subrubrics %}
+									{% if subrubrics is not empty %}
+										{% set total_subrubrics = subrubrics|length %}
+										{% set angle = loop.index0 * (360 / total_subrubrics) %}
+										<div class="item cards carouselItem" data-parent-id="{{ rubric.id }}"
+											style="transform: rotateY('{{ angle }}deg') translateZ(400px);">
+											
+											<div class="carousel-content">
+												<a href="{{ path('app_products_by_rubric', {'slug': subrubric.slug}) }}">
+												<img src="{{ subrubric_images[subrubric.slug] }}" alt="{{ subrubric.label }}" class="carousel-image">
+												<div class="text-overlay">
+													<h2>{{ subrubric.slug }}</h2>
+													<p>{{ subrubric.description }}</p>
+												</div></a>
+											</div>
+			
+										</div>
+									{% endif %}
+								{% endfor %}
+							</div>
+						{% endfor %}
+					</div>
+			
+					<!-- Boutons de navigation -->
+					<div class="btn prev" onclick="rotateCarousel(-1)">
+						<i class="bi bi-arrow-left-square-fill"></i>
+					</div>
+					<div class="btn next" onclick="rotateCarousel(1)">
+						<i class="bi bi-arrow-right-square-fill"></i>
+					</div>
+				</section>
+			</div>
+		</div>
+	</main>
+	{% block javascripts %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	
+	<script>
+		(function ($) {
+			$(document).ready(function () {
+				$(document).on("mouseenter", ".shutter-column.on-hover", function () {
+					$(this).removeClass("divi-transform-none");
+					console.log("Ajout de la classe");
+					setTimeout(() => {
+						$(this).addClass("divi-transform-none");
+						console.log("Suppression de la classe");
+					}, 5000) // 1 seconde
+				});
+			});
+		})(jQuery);
+	</script>
+	
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script>
+		function showSubrubrics(rubricId) {
+			const allItems = document.querySelectorAll('.carouselItem');
+			const selectedItems = document.querySelectorAll(`.carouselItem[data-parent-id="${rubricId}"]`);
+	
+			// Cacher tous les éléments
+			allItems.forEach(item => item.style.display = 'none');
+	
+			// Afficher uniquement les sous-rubriques associées
+			selectedItems.forEach(item => item.style.display = 'block');
+	
+	
+			currdeg = 0;
+			gsap.to(".carousel", {
+				duration: 1,
+				rotationY: currdeg,
+				ease: "expo.inOut"
+			});
+		}
+	
+		var w,
+			container,
+			carousel,
+			item,
+			itemLength,
+			rY,
+			radius;
+		var rotationY = 0;
+	
+		$(document).ready(init);
+	
+		function init() {
+			w = $(window);
+			container = $('#contentContainer');
+			carousel = $('#carouselContainer');
+			item = $('.carouselItem');
+	
+			itemLength = item.length;
+			rY = 360 / itemLength;
+			radius = Math.round((170) / Math.tan(Math.PI / itemLength));
+	
+			// set container 3d props
+			itemLength = item.length;
+			rY = 360 / itemLength;
+			radius = Math.round((container.width() / 8) / Math.tan(Math.PI / itemLength));
+	
+			// set container 3d props
+	
+			gsap.set(container, {
+				perspective: 1000
+			});
+			gsap.set(carousel, {
+				z: -(radius),
+				transformOrigin: "center center " + -radius + "px"
+			});
+	
+	
+	
+			// create carousel item props
+			item.each(function (i) {
+				var $item = $(this);
+				gsap.set($item, {
+					rotationY: rY * i,
+					z: radius,
+					transformOrigin: "50% 50% " + -radius + "px"
+				});
+			});
+	
+			// Initial animation
+			gsap.fromTo(item, {
+				autoAlpha: 0,
+				scale: 0
+			}, {
+				duration: 1,
+				autoAlpha: 1,
+				scale: 1,
+				stagger: 0,
+				ease: "expo.inOut"
+			});
+		}
+	
+		/*var currdeg = 0;
+		const totalItems = document.querySelectorAll(".carouselItem").length;
+		const angleStep = 360 / totalItems;
+	
+		function rotateCarousel(direction) {
+			currentAngle += direction * angleStep;
+			document.querySelector("#carouselItem").style.transform = `rotateY(${currentAngle}deg)`;
+		}*/
+	    var currdeg = 0;
+		const totalItems = document.querySelectorAll(".carouselItem").length;
+		const angleStep = 360 / totalItems;
+	
+		$(".next").on("click", {
+			d: "n"
+		}, rotate);
+		$(".prev").on("click", {
+			d: "p"
+		}, rotate);
+	
+		function rotate(e) {
+			if (e.data.d == "n") {
+				currdeg = currdeg + rY;
+			}
+			if (e.data.d == "p") {
+				currdeg = currdeg - rY;
+			}
+			gsap.to(".carousel", {
+				duration: 1,
+				rotationY: currdeg,
+				ease: "expo.inOut"
+			});
+		}	
+	</script>
+
+	{% endblock %}
+	{% endblock %}
