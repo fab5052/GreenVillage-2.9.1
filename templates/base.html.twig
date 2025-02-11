@@ -36,7 +36,7 @@
 
 {% endblock %}
 
-
+{% block main %}
 
 
 {% for label, messages in app.flashes %}
@@ -51,9 +51,12 @@
 {% endfor %}
 
 
-{# {{ include ('_partials/_flash.html.twig')}} #}
+{{ include ('_partials/_flash.html.twig')}}
 
-{# {{ include ('_partials/_pagination.html.twig')}} #}
+{{ include ('_partials/_pagination.html.twig')}}
+
+{% endblock %}
+
 {% block body %}{% endblock %}
 
 {% block footer %}
